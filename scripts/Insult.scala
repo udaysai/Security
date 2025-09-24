@@ -1,29 +1,9 @@
-import scala.util.Random
+import scala.sys.process._
+import scala.util.Try
 
 object Insult {
-  private val adjectives = Vector(
-    "clueless",
-    "pathetic",
-    "inept",
-    "bungling",
-    "witless",
-    "gullible"
-  )
-
-  private val nouns = Vector(
-    "script-kiddie",
-    "newbie",
-    "luser",
-    "greenhorn",
-    "rookie",
-    "buffoon"
-  )
-
-  private val rng = new Random()
-
   def generate(): String = {
-    val adj = adjectives(rng.nextInt(adjectives.length))
-    val noun = nouns(rng.nextInt(nouns.length))
-    s"$adj $noun"
+    val command = "python3 python/generator.py"
+    Try(command.!!).map(_.trim).getOrElse("You're so bad, you broke the insult generator.")
   }
 }
